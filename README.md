@@ -1,74 +1,90 @@
-# Projeto de Gestão de TCC - Firebase e Node.js
+Configuração do Projeto
 
-Este projeto é um sistema de gerenciamento de TCC desenvolvido em **JavaScript**, com **Firebase Firestore** e **Firebase Authentication** no back-end, utilizando **Node.js** para lógica de negócios e controle de permissões. O sistema permite que diferentes tipos de usuários (alunos, orientadores, professores e coordenadores) gerenciem e visualizem projetos de TCC de forma eficiente e segura.
-
-## Funcionalidades
-
-- **Gestão de Usuários**:
-  - Diferentes tipos de usuários: aluno, orientador, professor e coordenador.
-  - Autenticação via Firebase Authentication.
-  - Permissões específicas com base no tipo de usuário.
-
-- **Gestão de Cursos, Turmas e Projetos**:
-  - Criação e gerenciamento de cursos, turmas e projetos.
-  - Alunos líderes criam e gerenciam seus próprios projetos.
-  - Orientadores acessam projetos das turmas que orientam.
-  - Coordenadores podem visualizar e editar todos os projetos.
-  - Professores têm acesso para visualizar todos os projetos.
-
-- **Notificações e Automação**:
-  - Notificações automáticas via Firebase Cloud Functions ao atualizar projetos.
-  - Lógica de negócios implementada no back-end para controle de acesso e validação.
-
-## Estrutura do Banco de Dados - Firebase Firestore
-
-### Coleções
-
-1. **`usuarios`**:
-   - Armazena todos os tipos de usuários.
-   - Campos principais: `nome_completo`, `email`, `senha (hash)`, `tipo_usuario`.
-
-2. **`cursos`**:
-   - Contém todos os cursos oferecidos.
-   - Campos principais: `nome`, `coordenador_id` (referência a um usuário coordenador).
-
-3. **`turmas`**:
-   - Contém as turmas, com dados sobre curso, turno e orientador.
-   - Campos principais: `nome`, `turno`, `ano`, `curso_id`, `orientador_id`.
-
-4. **`projetos`**:
-   - Armazena todos os projetos de TCC, com dados completos do projeto.
-   - Campos principais: `nome`, `descricao`, `componentes`, `bm_canvas`, `pm_canvas`, `video_pitch`, `documento_adicional`, `link`, `turma_id`, `lider_id`.
-
-### Exemplo de Estrutura JSON
-
-```json
-"usuarios": {
-  "usuario_1": {
-    "nome_completo": "João Silva",
-    "email": "joao@email.com",
-    "senha": "hash_da_senha",
-    "tipo_usuario": "aluno"
-  },
-  "usuario_2": {
-    "nome_completo": "Maria Souza",
-    "email": "maria@email.com",
-    "senha": "hash_da_senha",
-    "tipo_usuario": "orientador"
-  }
-}```
-
-
-## Configuração do Projeto
-
-### 1. Clone o Repositório
+# 1. Clone o Repositório
 
 Para clonar o repositório, execute:
 
-```bash
 git clone https://github.com/SEU_USUARIO/gestao-de-tcc.git
-cd gestao-de-tcc```
+cd gestao-de-tcc
 
-2. Se já houver arquivos locais sem Git iniciado
+# 2. Se já houver arquivos locais sem Git iniciado
 
 Caso você já tenha arquivos prontos no diretório local e ainda não tenha iniciado o Git, siga os passos abaixo para configurar este repositório como remoto:
+
+# Inicie o Git no diretório
+git init
+
+# Adicione os arquivos ao controle de versão
+git add .
+
+# Faça o primeiro commit
+git commit -m "Primeiro commit do projeto"
+
+# Adicione o repositório remoto
+git remote add origin https://github.com/SEU_USUARIO/gestao-de-tcc.git
+
+# Envie os arquivos para o repositório remoto
+git push -u origin master
+
+
+# 3. Instale as Dependências
+
+Execute o comando abaixo para instalar todas as dependências listadas no package.json:
+
+npm install
+
+
+# 4. Configure o Firebase Admin SDK
+
+•	No console do Firebase, acesse Configurações do Projeto > Contas de Serviço e baixe a chave JSON.
+•	Salve o arquivo JSON no diretório do projeto e configure o Firebase Admin SDK no index.js conforme o exemplo abaixo
+
+// index.js
+const admin = require('firebase-admin');
+const serviceAccount = require('./caminho/para/sua-chave.json');
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://<SEU_PROJETO>.firebaseio.com"
+});
+
+
+# 5. Inicie o Servidor
+
+Para iniciar o servidor localmente, execute o seguinte comando:
+
+node index.js
+
+O servidor estará em execução no http://localhost:3000.
+
+
+# Estrutura do Código
+
+•	index.js: Arquivo principal onde as rotas da API e a lógica principal do servidor estão configuradas.
+•	routes/: Contém as rotas principais para usuarios, projetos, cursos e turmas.
+•	controllers/: Lógica de negócios para cada rota, implementando permissões e validações específicas.
+•	functions/: Contém as Firebase Cloud Functions para notificações automáticas e validações adicionais.
+
+# Rotas Principais da API
+
+•	GET /projetos - Listar todos os projetos (para coordenadores e professores).
+•	POST /projetos - Criar um projeto (apenas para alunos líderes).
+•	GET /projetos/:id - Visualizar detalhes de um projeto.
+•	PUT /projetos/:id - Atualizar um projeto (para coordenadores e orientadores autorizados).
+•	GET /usuarios/:id/projetos - Listar projetos específicos de um aluno ou orientador.
+
+# Firebase Cloud Functions
+
+Utilizando Node.js para criar Cloud Functions que são executadas automaticamente para ações específicas:
+
+•	Notificações: Envia notificações ao orientador quando o aluno atualiza um projeto.
+•	Validação de Dados: Verifica se apenas coordenadores podem editar todos os projetos.
+•	Automação de Tarefas: Realiza ações programadas para atualização de dados e integração com APIs externas.
+
+# Como Contribuir
+
+1.	Faça um fork do repositório.
+2.	Crie uma nova branch com a sua funcionalidade (git checkout -b feature/funcionalidade).
+3.	Commit suas alterações (git commit -m 'Adiciona nova funcionalidade').
+4.	Push para a branch (git push origin feature/funcionalidade).
+5.	Abra um Pull Request.
