@@ -56,7 +56,7 @@ Este projeto é um sistema de gerenciamento de TCC desenvolvido em **JavaScript*
     "senha": "hash_da_senha",
     "tipo_usuario": "orientador"
   }
-}
+}```
 
 
 ## Configuração do Projeto
@@ -67,7 +67,7 @@ Para clonar o repositório, execute:
 
 ```bash
 git clone https://github.com/SEU_USUARIO/gestao-de-tcc.git
-cd gestao-de-tcc
+cd gestao-de-tcc```
 
 2. Se já houver arquivos locais sem Git iniciado
 
