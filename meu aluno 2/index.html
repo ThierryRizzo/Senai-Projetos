@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Menu Aluno-2</title>
+    
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-area">
+            <img src="img/Senai proj.jpg" alt="Logo" id="">
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active"> <img src="img/relogio.png" alt="">Projects</li>
+        </ul>
+        <div class="bottom-section">
+            <div class="logout-option"> <img src="img/logoff.png" alt="">
+                Log off  
+            </div>
+            <div class="user-info">
+                <p>Adriane Ribeiro</p>
+                <small>Aluno</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="main-content">
+            <div class="projects-header">
+                <h2>Meus Projetos</h2>
+                <button id="newProjectButton" class="new-project-btn">
+                    <a href="../editar_prj_aluno/index.html">new project</a> +
+                </button>
+            </div>
+
+            <table class="projects-table">
+                <thead>
+                    <tr>
+                        <th>Nome do projeto</th>
+                        <th>Curso</th>
+                        <th>Turma</th>
+                        <th>Turno</th>
+                        <th>Orientador</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="projects-list">
+                    <tr>
+                        <td>Tarefa Fácil</td>
+                        <td>Des. Sistemas</td>
+                        <td>85367</td>
+                        <td>Matutino</td>
+                        <td>Carlos André</td>
+                        <td>
+                            <td>
+                                <div class="action-menu">
+                                    <button class="action-btn" onclick="togglePicker(this)">⋮</button>
+                                    <div class="picker-content" style="display: none;">
+                                        <button class="edit-btn" onclick="editProject('${project.nome}')">Editar</button>
+                                        <button class="delete-btn" onclick="deleteProject('${project.nome}')">Excluir</button>
+                                    </div>
+                                </div>
+                            </td>
+                            
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>  
