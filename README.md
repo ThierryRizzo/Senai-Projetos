@@ -88,3 +88,5 @@ Utilizando Node.js para criar Cloud Functions que são executadas automaticament
 3.	Commit suas alterações (git commit -m 'Adiciona nova funcionalidade').
 4.	Push para a branch (git push origin feature/funcionalidade).
 5.	Abra um Pull Request.
+
+Obrigado!
