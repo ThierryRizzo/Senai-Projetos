@@ -1,14 +1,8 @@
-// script.js
+// === DOM ===
+const projectsList = document.getElementById('projects-list'); // Tabela de projetos
 
-// Função para mostrar/ocultar o picker
-function togglePicker(button) {
-    const picker = button.nextElementSibling;
-    picker.style.display = picker.style.display === 'none' || !picker.style.display ? 'block' : 'none';
-}
-
-// Função para carregar o projeto da lista
+// Função para carregar os projetos da lista
 function loadProjects() {
-    const projectsList = document.getElementById('projects-list');
     projectsList.innerHTML = ''; // Limpa a tabela antes de adicionar os projetos
 
     // Verifica se há um projeto salvo no localStorage
@@ -27,7 +21,7 @@ function loadProjects() {
                     <button class="action-btn" onclick="togglePicker(this)">⋮</button>
                     <div class="picker-content" style="display: none;">
                         <button class="edit-btn" onclick="editProject('${project.nome}')">Editar</button>
-                        <button class="delete-btn" onclick="deleteProject('${project.nome}')">Excluir</button>
+                        <button class="delete-btn" onclick="deleteProject()">Excluir</button>
                     </div>
                 </div>
             </td>
@@ -40,19 +34,19 @@ function loadProjects() {
     }
 }
 
-// Função para editar um projeto
-function editProject(projectName) {
-    alert(`Editar projeto: ${projectName}`);
-    // Aqui você pode redirecionar para a página de edição ou abrir um modal para editar o projeto
-}
-
-// Função para excluir um projeto
-function deleteProject(projectName) {
-    if (confirm(`Tem certeza que deseja excluir o projeto: ${projectName}?`)) {
-        localStorage.removeItem('projeto');
+// Função para excluir o projeto
+function deleteProject() {
+    if (confirm("Tem certeza que deseja excluir o projeto?")) {
+        localStorage.removeItem('projeto'); // Remove o projeto do localStorage
         loadProjects(); // Atualiza a lista de projetos
     }
 }
 
-// Chama a função de carregar os projetos ao carregar a página
+// Função para exibir ou esconder o menu de ações
+function togglePicker(button) {
+    const pickerContent = button.nextElementSibling;
+    pickerContent.style.display = pickerContent.style.display === 'none' ? 'block' : 'none';
+}
+
+// Carregar projetos ao carregar a página
 document.addEventListener('DOMContentLoaded', loadProjects);

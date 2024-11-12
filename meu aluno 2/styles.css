@@ -185,6 +185,15 @@ body {
     font-size: 15px;
 }
 
+.logout-option a {
+    text-decoration: none;
+    color: #FF5E52;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    
+}
+
 .logout-option:hover {
     background-color: #e5e8ec;
 }
